@@ -19,21 +19,35 @@ import com.freshvotes.security.Authority;
 public class User 
 {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
 	private String name;
 	private String username;
 	private String password;
-	@OneToMany(targetEntity = Authority.class, mappedBy="user", fetch=FetchType.EAGER, cascade = CascadeType.ALL) 
+//	@OneToMany(targetEntity = Authority.class, mappedBy="user", fetch=FetchType.EAGER, cascade = CascadeType.ALL) 
 	private Set<Authority> authorities = new HashSet<>();
 	
-	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//	@OneToMany(targetEntity = Product.class, mappedBy="user", fetch=FetchType.LAZY, cascade = CascadeType.PERSIST) 
+	private Set<Product> products = new HashSet<>();
+	
+	
+	@OneToMany(targetEntity = Product.class, mappedBy="user", fetch=FetchType.LAZY, cascade = CascadeType.PERSIST) 
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	
+	@OneToMany(targetEntity = Authority.class, mappedBy="user", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	public Set<Authority> getAuthorities() {
 		return authorities;
 	}
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -58,6 +72,11 @@ public class User
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
+				+ ", authorities=" + authorities + "]";
 	}
 	
 	

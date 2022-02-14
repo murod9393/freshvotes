@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,11 +12,22 @@ import javax.persistence.Table;
 public class Feature 
 {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
 	private String description;
 	private String status;
+	private Product product;
+	
+	@ManyToOne(targetEntity = Product.class )
+	public Product getProduct() {
+		return product;
+	}
+	public void  setProduct(Product product) {
+		this.product = product;
+	}
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
