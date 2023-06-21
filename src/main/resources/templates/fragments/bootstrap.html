@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+</head>
+<body>
+	<div th:fragment="headerElement" th:remove="tag">
+	
+		<link type="text/css" href="/bootstrap-5.3.0-dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="/bootstrap-5.3.0-dist/js/bootstrap.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	</div>
+
+	<div th:fragment="header" th:remove="tag">
+		<nav class="navbar navbar-expand-lg nav-dark bg-secondary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/"><img src="/images/logo.png"/></a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarText"
+					aria-controls="navbarText" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarText">
+						<ul sec:authorize="isAuthenticated()" class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link" href="/dashboard"> Dashboard </a>
+							
+						</ul>				
+						<div class="navbar-text float-right">
+							<div sec:authorize="!isAuthenticated()">
+							<button class="btn btn-primary btn-lg" id="loginBtn">Log in</button>
+							<script type="text/javascript">
+							$(function() {
+								$("#loginBtn").click(function() {
+									window.location.href = "/login";
+								});
+							})
+							</script>
+							</div>
+							<div sec:authorize="isAuthenticated()">
+								<form action="/logout" method="post" class="float-right">
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<button type="submit" class="btn btn-secondary bg-primary btn-lg" id="logoutBtn">Log out</button>
+								</form>
+							</div>						
+						</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+</body>
+</html>
