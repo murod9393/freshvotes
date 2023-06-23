@@ -20,6 +20,7 @@ public class Product {
 	private Long id;
 	private String name;
 	private User user;
+	private Set<Feature> features = new HashSet<>();
 	private Boolean published;
 	
 	public Boolean getPublished() {
@@ -28,8 +29,8 @@ public class Product {
 	public void setPublished(Boolean published) {
 		this.published = published;
 	}
-	//@OneToMany(targetEntity = Feature.class, mappedBy="product", fetch=FetchType.LAZY, cascade = CascadeType.ALL) 
-	private Set<Feature> features = new HashSet<>();
+	 
+	
 	
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -90,7 +90,7 @@ public class ProductsController {
 	@PostMapping("/products/{productId}")
 	public String saveProduct(@PathVariable Long productId, Product product) {
 		productRepo.save(product);
-		return "redirect:/products/" + product.getId();
+		return "redirect:/products/";
 	}
 	
 	
