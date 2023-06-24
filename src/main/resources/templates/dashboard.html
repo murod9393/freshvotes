@@ -15,14 +15,8 @@
 		
 		
 		</div>	
-		<div class="row">
-			<div class="col">
-				<h2>Products</h2>
-			</div>
-		</div>
-		
-	
-		<div class="row" th:each="product : ${products}">
+
+		<!-- <div class="row" th:each="product : ${products}">
 			<div class="col-4">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -30,6 +24,16 @@
 					</li>
 				</ul>
 			</div>			
+		</div> -->
+
+		<div class="card" th:each="product: ${products}" style="margin: 1em;">
+			<div class="card-body" >
+				<h5 class="card-title" th:text="${product.name}">Card title</h5>
+				<h6 class="card-subtitle mb-2 text-body-secondary" th:text="${product.published ? 'Published' : 'Not Published'}">Card subtitle</h6>
+				<a th:href="@{products/{productId}(productId=${product.id})}" class="btn btn-info">Edit</a>
+				<a th:href="@{p/{productName}(productName=${product.name})}" class="btn btn-info">View Feature Request</a>
+			  </div>
+
 		</div>
 	
 		
