@@ -29,6 +29,8 @@ public class User
 	
 //	@OneToMany(targetEntity = Product.class, mappedBy="user", fetch=FetchType.LAZY, cascade = CascadeType.PERSIST) 
 	private Set<Product> products = new HashSet<>();
+
+	private Set<Feature> features = new HashSet<>();
 	
 	
 	@OneToMany(targetEntity = Product.class, mappedBy="user", fetch=FetchType.LAZY, cascade = CascadeType.PERSIST) 
@@ -77,6 +79,13 @@ public class User
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
 				+ ", authorities=" + authorities + "]";
+	}
+	@OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="user")
+	public Set<Feature> getFeatures(){
+		return features;
+	}
+	public void setFeatures(Set<Feature> features){
+		this.features = features;
 	}
 	
 	

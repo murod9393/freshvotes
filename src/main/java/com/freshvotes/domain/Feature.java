@@ -18,6 +18,7 @@ public class Feature
 	private String description;
 	private String status;
 	private Product product;
+	private User user;
 	
 	@ManyToOne(targetEntity = Product.class )
 	public Product getProduct() {
@@ -51,5 +52,12 @@ public class Feature
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public void setUser(User user){
+		this.user = user;
+	}
+	@ManyToOne
+	public User getUser(){
+		return user;
 	}
 }

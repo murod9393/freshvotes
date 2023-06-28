@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.freshvotes.domain.Feature;
+import com.freshvotes.domain.User;
 import com.freshvotes.service.FeatureService;
 
 @Controller
@@ -26,20 +28,21 @@ public class FeatureController {
 
 	
 	@PostMapping("")
-	public String createFeature(@PathVariable Long productId) {
+	public String createFeature(@PathVariable Long productId,@AuthenticationPrincipal User user) {
 		
-		Feature feature = featureService.createFeature(productId);
+		Feature feature = featureService.createFeature(productId,user);
 		
 		return "redirect:/products/"+productId+"/features/"+feature.getId();	
 		}
 
 	@GetMapping("/{featureId}")
-	public String getFeature(ModelMap model, @PathVariable Long productId, @PathVariable Long featureId) {
+	public String getFeature(ModelMap model, @PathVariable Long productId, @PathVariable Long featureId, @AuthenticationPrincipal User user) {
 		Optional<Feature> featureOpt =  featureService.findById(featureId);
 		if(featureOpt.isPresent()) {
 			model.put("feature", featureOpt.get());
+			model.put("user", user);
 		}
-		// TODO handle the situation where feature not exist
+		// TODO handle the situation where feature does not exist
 		
 		return "feature";
 		

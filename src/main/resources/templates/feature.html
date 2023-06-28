@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-<title>FreshVotes Login</title>
+<title>FreshVotes Feature</title>
 <script th:replace="fragments/bootstrap :: headerElement"></script>
 </head>
 <body>
 	<div th:replace="fragments/bootstrap :: header"></div>
 	<div class="container" style="margin-top: 1.5em">
 		
-			<h1>New Feature <span class="badge bg-info" th:text="${feature.status}"></span></h1>
+			<h1>Feature Status<span class="badge bg-info" th:text="${feature.status}"></span></h1>
 		<form action="" method="post">
 				<input type="hidden" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}" />
@@ -17,13 +17,13 @@
 				<input type="hidden" th:field="${feature.status}" />
 			<div class="mb-3">
 				<label for="title" class="form-label">Title: </label>
-				<input type="text" class="form-control" th:field="${feature.title}" id="feature.title" placeholder="Feature Title"/>
+				<input type="text" class="form-control" th:field="${feature.title}" id="feature.title" placeholder="Feature Title" th:attrappend="disabled=${user.id == feature.user.id ? null : 'disabled'}"/>
 			</div>
 			<div class="mb-3">
 				<label for="description" class="form-label">Description: </label>
-				<textarea th:field="${feature.description}" class="form-control" id="feature.description" ></textarea>
+				<textarea th:field="${feature.description}" class="form-control" id="feature.description" th:attrappend="disabled=${user.id == feature.user.id ? null : 'disabled'}"></textarea>
 			</div>
-			<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+			<button type="submit" class="btn btn-primary btn-lg" th:if="${user.id == feature.user.id}">Submit</button>
 		</form>
 	
 	</div>
