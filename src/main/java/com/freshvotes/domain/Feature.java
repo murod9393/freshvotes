@@ -1,10 +1,16 @@
 package com.freshvotes.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +25,7 @@ public class Feature
 	private String status;
 	private Product product;
 	private User user;
+	private Set<Comment> comments = new HashSet<>();
 	
 	@ManyToOne(targetEntity = Product.class )
 	public Product getProduct() {
@@ -59,5 +66,13 @@ public class Feature
 	@ManyToOne
 	public User getUser(){
 		return user;
+	}
+
+	public void setComments(Set<Comment> comments){
+		this.comments = comments;
+	}
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "pk.feature")
+	public Set<Comment> getComments(){
+		return  comments;
 	}
 }

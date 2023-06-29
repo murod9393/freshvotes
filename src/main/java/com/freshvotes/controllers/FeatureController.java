@@ -39,7 +39,9 @@ public class FeatureController {
 	public String getFeature(ModelMap model, @PathVariable Long productId, @PathVariable Long featureId, @AuthenticationPrincipal User user) {
 		Optional<Feature> featureOpt =  featureService.findById(featureId);
 		if(featureOpt.isPresent()) {
-			model.put("feature", featureOpt.get());
+			Feature feature = featureOpt.get();
+			model.put("feature", feature);
+			model.put("comments", feature.getComments());
 			model.put("user", user);
 		}
 		// TODO handle the situation where feature does not exist
